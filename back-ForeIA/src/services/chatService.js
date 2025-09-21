@@ -1,7 +1,6 @@
 import { chatDAO } from "../DAOs/chatDAO.js";
 import { iaService } from "./iaService.js";
-import { DTOValidatorUtil } from "../utils/DTOValidator.js";
-import { iaContextFabric } from "../utils/iaContextFabric.js";
+import { iaContextFabric } from "../utils/IaContextFabric.js";
 
 
 class ChatService {
