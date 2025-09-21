@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  foreianucle_microservice:
+    build: .
+    image: docker.io/foreiamicroservice:1.0
+    container_name: foreianucle_microservice
+    environment:
+      - PORT=${PORT}
+      - FOREIANUCLE_MICROSERVICE_TOKENKEY=${FOREIANUCLE_MICROSERVICE_TOKENKEY}
+      - MODEL_TEXT_ID=${MODEL_TEXT_ID}
+      - QUANTIZATION_CONFIG=${QUANTIZATION_CONFIG}
+    volumes:
+      - .:/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: ["gunicorn", "-w", "1", "-b", "0.0.0.0:${PORT}", "-t", "180", "main:app"]
+  cloudflared-tunnel:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARED_TUNNEL_TOKEN} --url http://foreianucle_microservice:${PORT} --protocol http2
+    restart: unless-stopped
+    container_name: cloudflared_tunnel_access
+    depends_on:
+      - foreianucle_microservice

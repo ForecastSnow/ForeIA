@@ -1,0 +1,12 @@
+.env
+.env-example
+Include/
+Lib/
+Scripts/
+__pycache__/
+modelsIA/
+iaImageAnalyzerModel.py
+aiImageController.py
+aiImageService.py
+readme.md
+pyvenv.cfg
