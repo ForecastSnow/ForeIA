@@ -14,7 +14,7 @@ loginController.post("/login", async (req, res, next) => {
 
         const cookieAndDate = await loginService.login(payload);
 
-        res.status(200).cookie("token", cookieAndDate.cookie, { httpOnly: true, secure: true, sameSite: "Lax", maxAge: 1000 * 60 * 60 * 72 }).send({ message: "cookie sent", username: cookieAndDate.username, idUser: cookieAndDate.idUser })
+        res.status(200).cookie("token", cookieAndDate.cookie, { httpOnly: true, secure: true, sameSite: "None", maxAge: 1000 * 60 * 60 * 72 }).send({ message: "cookie sent", username: cookieAndDate.username, idUser: cookieAndDate.idUser })
 
     } catch (error) {
 
