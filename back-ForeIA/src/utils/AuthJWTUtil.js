@@ -49,7 +49,7 @@ class AuthJWTUtil {
         const tokenOptionsForForeIANucle = {
 
             algorithm: 'HS256',
-            expiresIn: "1m",
+            expiresIn: "72h",
             issuer: "api.tomasperez.work"
 
         }

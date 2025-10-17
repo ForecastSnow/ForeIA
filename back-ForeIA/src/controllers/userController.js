@@ -12,8 +12,10 @@ userController.post("/createUser", async (req, res, next) => {
 
         const payload = await DTOValidatorUtil.userDTO(req.body)
 
-        res.status(201).send(await userService.createUser(payload))
-        
+        await userService.createUser(payload)
+
+        res.status(201).send({ message: "ok" })
+
     } catch (error) {
 
         next(error)

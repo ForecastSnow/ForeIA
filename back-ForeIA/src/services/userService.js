@@ -13,7 +13,17 @@ class UserService {
 
             const newUser = { username, email, hashPassword }
 
-            return await userDAO.createUser(newUser)
+            const isRegister = await this.findUserByEmail(email)
+
+            if (isRegister.length != 0) {
+                const error = new Error("Conflict")
+                error.status = 409
+                throw error
+            }
+
+            await userDAO.createUser(newUser)
+
+            return
 
         } catch (error) {
 

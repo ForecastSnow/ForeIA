@@ -12,6 +12,7 @@ class LoginService {
         try {
 
             function invalidCredentials() {
+                
                 const customError = new Error("user or password invalid");
 
                 customError.status = 401;
@@ -26,7 +27,17 @@ class LoginService {
 
             if (!(await bcrypt.compare(payload.plainPassword, userExist[0].hashPassword))) invalidCredentials()
 
-            return await authJWTUtil.singToken(userExist[0]);;
+            const cookieAndDate = {
+
+                cookie: await authJWTUtil.singToken(userExist[0]),
+
+                username: userExist[0].username,
+
+                idUser: userExist[0]._id
+
+            }
+
+            return cookieAndDate
 
         } catch (error) {
 
