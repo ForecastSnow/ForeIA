@@ -11,9 +11,9 @@ export const authMiddleware = (req, res, next) => {
 
             const error = new Error("you need to log in");
 
-            error.status = 401;
+            error.status = 302
 
-            next(error)
+            throw error
 
         } else {
 
@@ -21,10 +21,11 @@ export const authMiddleware = (req, res, next) => {
 
         }
 
-
         next()
 
     } catch (error) {
+
+        error.status ? error.status : 401;
 
         next(error)
 

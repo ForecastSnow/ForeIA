@@ -7,6 +7,7 @@ import { errorHandler } from "./src/middlewares/errorHandler.js";
 import { userController } from "./src/controllers/userController.js";
 import { loginController } from "./src/controllers/loginController.js";
 import { chatController } from "./src/controllers/chatController.js";
+import cors from "cors"
 
 connectDataBase();
 
@@ -15,6 +16,14 @@ const app = express();
 app.use(cookieParser());
 
 app.use(express.json());
+
+const corsOptions = {
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.use("/api/", userController);
 
