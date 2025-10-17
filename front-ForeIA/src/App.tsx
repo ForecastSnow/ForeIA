@@ -34,10 +34,10 @@ const errorHandlers: ErrorHandlersMap = {
 export function App() {
   const navigate = useNavigate();
 
-  const { data: serverStatus, isError, error } = useQuery({
+  const { data: _serverStatus, isError, error } = useQuery({
     queryKey: ['serverStatus'],
     queryFn: () => dataFetcher.serverStatus(),
-    retry: (failureCount, error) => {
+    retry: (failureCount) => {
       return failureCount < 1;
     },
   });

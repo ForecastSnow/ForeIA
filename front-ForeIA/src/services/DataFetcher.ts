@@ -16,7 +16,7 @@ class DataFetcher {
     async serverStatus() {
 
         try {
-            const response = await fetch(apiEndpoints.serverCheck, {
+            const response = await fetch(this.apiEndpoints.serverCheck, {
 
                 method: "GET",
                 credentials: "include",
@@ -40,7 +40,7 @@ class DataFetcher {
 
         try {
 
-            const response = await fetch(apiEndpoints.login, {
+            const response = await fetch(this.apiEndpoints.login, {
 
                 method: "POST",
                 credentials: "include",
@@ -68,7 +68,7 @@ class DataFetcher {
 
         try {
 
-            const response = await fetch(apiEndpoints.logout, {
+            const response = await fetch(this.apiEndpoints.logout, {
 
                 method: "POST",
                 credentials: "include",
@@ -93,7 +93,7 @@ class DataFetcher {
 
         try {
 
-            const response = await fetch(apiEndpoints.createUser, {
+            const response = await fetch(this.apiEndpoints.createUser, {
 
                 method: "POST",
                 credentials: "include",
@@ -122,7 +122,7 @@ class DataFetcher {
 
         try {
 
-            const response = await fetch(apiEndpoints.chatGetAll, {
+            const response = await fetch(this.apiEndpoints.chatGetAll, {
 
                 method: "GET",
                 credentials: "include",
@@ -145,7 +145,7 @@ class DataFetcher {
     async getChatById(id: string) {
 
         try {
-            const response = await fetch((apiEndpoints.chatGetById.concat(id)), {
+            const response = await fetch((this.apiEndpoints.chatGetById.concat(id)), {
 
                 method: "GET",
                 credentials: "include",
@@ -169,7 +169,7 @@ class DataFetcher {
 
         try {
 
-            const response = await fetch(apiEndpoints.chatMessage.concat(payload.chatSelected), {
+            const response = await fetch(this.apiEndpoints.chatMessage.concat(payload.chatSelected), {
 
                 method: "POST",
                 credentials: "include",
@@ -198,7 +198,7 @@ class DataFetcher {
 
         try {
 
-            const response = await fetch(apiEndpoints.chatCreate, {
+            const response = await fetch(this.apiEndpoints.chatCreate, {
 
                 method: "POST",
                 credentials: "include",
@@ -227,7 +227,7 @@ class DataFetcher {
 
         try {
 
-            const response = await fetch((apiEndpoints.chatDisableById).concat(payload.id), {
+            const response = await fetch((this.apiEndpoints.chatDisableById).concat(payload.id), {
 
                 method: "PUT",
                 credentials: "include",
