@@ -17,9 +17,6 @@ type ErrorHandlersMap = {
 };
 
 const errorHandlers: ErrorHandlersMap = {
-  302: (navigate) => {
-    navigate("/login");
-  },
   401: (navigate) => {
     navigate("/login");
   },

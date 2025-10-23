@@ -6,9 +6,9 @@ import vitePluginSvgr from 'vite-plugin-svgr'
 
 export default defineConfig({
   plugins: [vitePluginSvgr(), react(), tailwindcss()],
-  server: {
+  /* server: {
     
     host: '0.0.0.0', 
     port: 5173,
-  }
+  } */
 })
