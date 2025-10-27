@@ -29,13 +29,13 @@ function Chat(atributes: { chatSelected: string | undefined, setChatSelected: Re
 
     useEffect(() => {
         if (atributes.chatSelected) { refreshChat() }
-    }), [atributes.chatSelected]
+    }, [atributes.chatSelected])
 
     const { mutate: sendNewMessage, isPending: isSendingResponseMessage } = useMutation({
         mutationFn: (payload: { message: string; chatSelected: string }) => dataFetcher.sendNewMessage(payload),
         onSuccess: () => {
+            
             refreshChat()
-
 
         }
     });
@@ -92,7 +92,7 @@ function Chat(atributes: { chatSelected: string | undefined, setChatSelected: Re
 
                     <div className="w-full justify-between items-center px-2">
 
-                        {chat && atributes.chatSelected ? (chat.messages.reverse().map((message: message) => (<Message messageData={message} key={message._id} />))) : <>
+                        {chat && atributes.chatSelected ? (chat.messages.map((message: message) => (<Message messageData={message} key={message._id} />))) : <>
 
 
                             <div className="flex bg-gray-950 p-4 font-mono text-white">

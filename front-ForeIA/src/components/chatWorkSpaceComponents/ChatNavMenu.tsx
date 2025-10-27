@@ -59,7 +59,8 @@ function ChatNavMenu(atributes: { setChatSelected: React.Dispatch<React.SetState
 
         <ul className='flex flex-col-reverse'>
 
-          {Array.isArray(chats) && chats.reverse().map((chat: Chat) => (<ConversationButton setChatSelected={atributes.setChatSelected} key={chat._id} chat={chat} isOpen={isOpen} />))}
+
+          {Array.isArray(chats) && chats.map((chat: Chat) => (<ConversationButton setChatSelected={atributes.setChatSelected} key={chat._id} chat={chat} isOpen={isOpen} />))}
 
           <li onClick={() => { atributes.setChatSelected(undefined) }} className='flex justify-center cursor-pointer p-3 my-1 rounded-md bg-gray-700 hover:bg-gray-800 transition-colors duration-200' key={0}>
 
