@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate, type NavigateFunction } from 'react-router-dom';
+import { Routes, Route, useNavigate, type NavigateFunction, Navigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { dataFetcher } from './services/DataFetcher.ts';
 import Login from './components/Login.tsx';
@@ -57,6 +57,8 @@ export function App() {
     <div className="AppContainer">
 
       <Routes>
+
+        <Route path="/" element={<Navigate to="/app" replace />} />
 
         <Route path="/login" element={<Login />} />
 

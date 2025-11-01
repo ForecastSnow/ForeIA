@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { dataFetcher } from '../services/DataFetcher';
 import { errorApi } from '../utils/apiErrorHandler';
 import Swal from 'sweetalert2';
+import logo from "/ForeIAIconV2.png"
 
 
 function Login() {
@@ -97,7 +98,8 @@ function Login() {
 
                     <img
                         className="w-8 h-8 mr-2"
-                        src="/ForeIAIconV2.png"
+                        src={logo}
+
                         alt="logo"
                     />
 

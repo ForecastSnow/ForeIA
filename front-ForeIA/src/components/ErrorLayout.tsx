@@ -27,7 +27,7 @@ function ErrorLayout(errorData: {error: errorApi}) {
                 </h1>
 
                 <p className="text-xl text-gray-300">
-                    {errorData.error?.responseData.message}
+                    {errorData.error?.responseData?.message ?? "El Backend esta durmiendo. Shhhh"}
                 </p>
 
                 <div className="flex items-center justify-center pt-4 text-yellow-400/80">
