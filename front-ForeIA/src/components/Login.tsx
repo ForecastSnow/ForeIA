@@ -5,6 +5,10 @@ import { dataFetcher } from '../services/DataFetcher';
 import { errorApi } from '../utils/apiErrorHandler';
 import Swal from 'sweetalert2';
 import logo from "/ForeIAIconV2.png"
+import { guestModeCredentialsRequest } from '../utils/guestmode.ts';
+
+
+const guestMode = (import.meta.env.VITE_GUEST_MODE === "true")
 
 
 function Login() {
@@ -110,9 +114,9 @@ function Login() {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             {isLoginMode ? 'Inicia sesion' : 'Crear una cuenta'}
                         </h1>
-                        {isFailLogin ? <p className="text-xl font-bold leading-tight tracking-tight text-orange-400 md:text-sm">Credenciales invalidos</p> : null}
-                        {isRegistereded ? <p className="text-xl font-bold leading-tight tracking-tight text-orange-400 md:text-sm">El email ya tiene una cuenta asociada</p> : null}
-                        {passwordMatch ? <p className="text-xl font-bold leading-tight tracking-tight text-orange-400 md:text-sm">Las contraseñas deben coincidir</p> : null}
+                        {isFailLogin ? <p className="text-xl font-bold leading-tight tracking-tight text-orange-400 md:text-sm">Credenciales inválidos</p> : null}
+                        {isRegistereded ? <p className="text-xl font-bold leading-tight tracking-tight text-orange-400 md:text-sm">El email ya tiene una cuenta asociada.</p> : null}
+                        {passwordMatch ? <p className="text-xl font-bold leading-tight tracking-tight text-orange-400 md:text-sm">Las contraseñas deben coincidir.</p> : null}
 
 
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
@@ -156,18 +160,26 @@ function Login() {
 
                             <button
                                 type="submit"
-                                className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white transition-all duration-300 ease-in-out hover:bg-primary-700 hover:shadow-[0_0_20px_theme(colors.primary.600)] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-primary-300 active:scale-95 active:shadow-none dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                className="cursor-pointer bg-gray-600 w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white transition-all duration-300 ease-in-out hover:bg-primary-700 hover:shadow-[0_0_20px_theme(colors.primary.600)] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-primary-300 active:scale-95 active:shadow-none dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
                                 {isLoginMode ? 'Ingresar' : 'Crear cuenta'}
                             </button>
 
+                            {guestMode && (<button
+                                type="button"
+                                onClick={guestModeCredentialsRequest}
+                                className="cursor-pointer bg-gray-600 w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white transition-all duration-300 ease-in-out hover:bg-primary-700 hover:shadow-[0_0_20px_theme(colors.primary.600)] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-primary-300 active:scale-95 active:shadow-none dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            >
+                                Modo invitado
+                            </button>)}
+
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                {isLoginMode ? '¿aun sin una cuenta? ' : '¿ya tienes una cuenta? '}
+                                {isLoginMode ? '¿Aún sin una cuenta? ' : '¿Tienes una cuenta? '}
                                 <button onClick={() => {
                                     setIsFailLogin(false)
                                     isLoginMode ? switchToSignUp() : switchToLogin()
                                 }} className="font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer">
-                                    {isLoginMode ? 'Registrarse' : 'Iniciar sesion'}
+                                    {isLoginMode ? 'Registrarse' : 'Iniciar sesión'}
                                 </button>
                             </p>
                         </form>
