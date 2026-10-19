@@ -1,5 +1,5 @@
 
-const apiURL = import.meta.env.VITE_APIURL
+const apiURL = (import.meta.env.VITE_APIURL || '').replace(/\/$/, '')
 
 export const apiEndpoints = Object.freeze({
 

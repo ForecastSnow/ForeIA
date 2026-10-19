@@ -14,7 +14,7 @@ function WaitingMessage() {
 
                 <div className="mt-3 pt-2 border-t border-gray-700">
                     <p className="text-xs text-gray-400">
-                        Esto corre sobre una modesta GPU de notebook. Meter un modelo de <strong className="text-gray-300">3B de parámetros</strong> en <strong className="text-gray-300">6GB de VRAM</strong> es un pequeño milagro de la cuantización. ¡Gracias por la paciencia!
+                        El sistema es lento porque es una demo con recursos limitados. La respuesta puede tardar.
                     </p>
                 </div>
 

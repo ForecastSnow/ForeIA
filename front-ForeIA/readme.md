@@ -1,5 +1,13 @@
 # 💻 ForeIA Frontend (SPA)
 
+## Primera versión del rediseño
+
+Interfaz en azul, gris y cian, con tema oscuro por defecto, opción de tema claro, favicon SVG propio, sugerencias que completan el editor, historial con búsqueda, confirmación al eliminar y diseño adaptable a móviles. El chat conserva los saltos de línea, presenta bloques de código y permite copiar respuestas. Enter envía; Shift + Enter añade una línea. Los estados de espera explican que las respuestas pueden tardar porque se trata de una demo con recursos limitados.
+
+Para revisarlo localmente, copia `.env-example` a `.env` si todavía no tienes configuración y ejecuta `npm run dev`. Abre `http://127.0.0.1:5173/app` para usar la API o `/preview` para explorar la interfaz sin iniciar sesión. El proxy de desarrollo usa `VITE_API_PROXY_TARGET`, conserva la autenticación en el mismo origen y no requiere cambiar Docker ni el CORS del servidor. En producción, configura `VITE_APIURL` con la URL pública del backend; el proxy de Vite solo está disponible durante el desarrollo.
+
+Validación: `npm run build` y `npm run lint`.
+
 El **Front-ForeIA** es la **interfaz de usuario** del ecosistema **ForeIA**, una demo técnica inspirada en ChatGPT/Gemini.  
 Se trata de una **Single Page Application (SPA)** desarrollada con **Vite + React + TypeScript**, que permite interactuar con el **Orchestrator API** y el microservicio de IA **IANucle**.
 

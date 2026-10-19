@@ -1,76 +1,34 @@
-import { Routes, Route, useNavigate, type NavigateFunction, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { dataFetcher } from './services/DataFetcher.ts';
-import Login from './components/Login.tsx';
-import './App.css';
-import { errorApi } from './utils/apiErrorHandler.ts';
 import { useEffect } from 'react';
-import ChatWorkspace from './components/ChatWorkSpace.tsx';
-import ErrorLayout from './components/ErrorLayout.tsx';
-
-
-type ErrorHandler = (navigate: NavigateFunction, error: errorApi) => void;
-
-type ErrorHandlersMap = {
-  [key: number]: ErrorHandler;
-  default: ErrorHandler;
-};
-
-const errorHandlers: ErrorHandlersMap = {
-  401: (navigate) => {
-    navigate("/login");
-  },
-
-  default: (navigate, error) => {
-
-    navigate("/error", { state: error });
-
-  }
-};
+import { dataFetcher } from './services/DataFetcher';
+import { errorApi } from './utils/apiErrorHandler';
+import Login from './components/Login';
+import ChatWorkspace from './components/ChatWorkSpace';
+import ErrorLayout from './components/ErrorLayout';
+import './App.css';
 
 export function App() {
   const navigate = useNavigate();
-
-  const { data: _serverStatus, isError, error } = useQuery({
-    queryKey: ['serverStatus'],
-    queryFn: () => dataFetcher.serverStatus(),
-    retry: (failureCount) => {
-      return failureCount < 1;
-    },
+  const { pathname } = useLocation();
+  const isPreview = pathname === '/preview';
+  const status = useQuery({
+    queryKey: ['serverStatus'], queryFn: () => dataFetcher.serverStatus(),
+    enabled: !isPreview, retry: false, refetchOnWindowFocus: false,
   });
-
   useEffect(() => {
-    if (isError && error instanceof errorApi) {
-
-      const handler = errorHandlers[error.statusCode] || errorHandlers.default;
-
-      handler(navigate, error);
-    } else {
-      navigate("/app")
+    if (pathname === '/app' && status.error instanceof errorApi && status.error.statusCode === 401) {
+      navigate('/login', { replace: true });
     }
-  }, [isError, error, navigate]);
-
-
-
-  return (
-
-    <div className="AppContainer">
-
-      <Routes>
-
-        <Route path="/" element={<Navigate to="/app" replace />} />
-
-        <Route path="/login" element={<Login />} />
-
-        <Route path="/app" element={<ChatWorkspace />} />
-
-        {/* @ts-ignore */}
-        <Route path="/error" element={<ErrorLayout error={error} />} />
-
-      </Routes>
-
-    </div>
-  );
+  }, [status.error, pathname, navigate]);
+  return <Routes>
+    <Route path="/" element={<Navigate to="/app" replace />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/app" element={<ChatWorkspace key="app" connection={status.isSuccess ? 'online' : status.isError ? 'offline' : 'checking'} onReconnect={() => { void status.refetch(); }} />} />
+    <Route path="/preview" element={<ChatWorkspace key="preview" preview connection="preview" onReconnect={() => navigate('/login')} />} />
+    <Route path="/error" element={<ErrorLayout error={status.error} />} />
+    <Route path="*" element={<Navigate to="/app" replace />} />
+  </Routes>;
 }
 
 export default App;

@@ -13,9 +13,21 @@ export default defineConfig(({ mode }) => {
 
     base: env.VITE_BASE_PUBLIC_PATH || '/',
     
-    /* server: {
-      host: '0.0.0.0', 
+    server: {
+      host: '127.0.0.1',
       port: 5173,
-    } */
+      strictPort: true,
+      // Local development only: keep the API and its session cookie same-origin.
+      // No changes to the remote server or its CORS configuration are needed.
+      proxy: env.VITE_API_PROXY_TARGET ? {
+        '/api': {
+          target: env.VITE_API_PROXY_TARGET,
+          changeOrigin: true,
+          cookieDomainRewrite: '',
+          timeout: 240_000,
+          proxyTimeout: 240_000,
+        },
+      } : undefined,
+    },
   }
 })

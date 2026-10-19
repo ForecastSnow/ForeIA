@@ -1,39 +1,17 @@
 export class errorApi extends Error {
-    public readonly statusCode: number;
-    public readonly responseData: any;
+  public readonly statusCode: number;
+  public readonly responseData: unknown;
 
-    constructor(message: string, statusCode: number, responseData: any = null) {
-
-        super(message);
-
-        this.name = 'CustomError';
-
-        this.statusCode = statusCode;
-        this.responseData = responseData;
-
-        Object.setPrototypeOf(this, errorApi.prototype);
-    }
+  constructor(message: string, statusCode: number, responseData: unknown = null) {
+    super(message);
+    this.name = 'ApiError';
+    this.statusCode = statusCode;
+    this.responseData = responseData;
+  }
 }
 
 export async function apiErrorHandler(response: Response) {
-
-    if (response.ok) {
-        return response;
-    }
-
-    let errorData = null;
-    try {
-        errorData = await response.json();
-    } catch (e) {
-       
-    }
-
-    const error = new errorApi(
-        response.statusText || 'Ocurrió un error en la petición',
-        response.status,
-        errorData
-    );
-
-    throw error;
+  if (response.ok) return response;
+  const errorData: unknown = await response.json().catch(() => null);
+  throw new errorApi(response.statusText || 'Ocurrió un error en la petición', response.status, errorData);
 }
-
