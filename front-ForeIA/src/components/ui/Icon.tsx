@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import brandIcon from '../../assets/foreia-mark.svg';
 
 const paths = {
   spark: 'm12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z',
@@ -35,5 +36,5 @@ export default function Icon({ name, size = 20, className = '', style }: { name:
 }
 
 export function Brand({ small = false }: { small?: boolean }) {
-  return <img className={`brand-mark ${small ? 'brand-mark-small' : ''}`} src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width={small ? 33 : 39} height={small ? 33 : 39} />;
+  return <img className={`brand-mark ${small ? 'brand-mark-small' : ''}`} src={brandIcon} alt="" width={small ? 33 : 39} height={small ? 33 : 39} />;
 }
